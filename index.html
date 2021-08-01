@@ -254,7 +254,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-01 09:55:57" itemprop="dateModified" datetime="2021-08-01T09:55:57+08:00">2021-08-01</time>
+                <time title="修改时间：2021-08-01 11:09:50" itemprop="dateModified" datetime="2021-08-01T11:09:50+08:00">2021-08-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -343,6 +343,11 @@
 <h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>线程池: 其实就是一个容纳多个线程的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，无需反复创建线程而消耗过多资源。</p>
 <p><img src="https://res.cloudinary.com/dqhbr3uh3/image/upload/v1627728749/%E7%BA%BF%E7%A8%8B%E6%B1%A0_drolws.png" alt="线程池的工作原理"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">线程池使用方法:</span></span><br><span class="line"><span class="comment">    1、使用线程池的工厂类Executors里面提供的静态方法newFixedThreadPool生产一个指定线程数量的线程池</span></span><br><span class="line"><span class="comment">    2、创建一个类，实现Runnable接口，重写run方法，设置线程任务</span></span><br><span class="line"><span class="comment">    3、调用ExecutorService中的方法submit，传递线程任务，开启线程，执行run方法</span></span><br><span class="line"><span class="comment">    4、调用ExecutorService中的方法shutDown销毁线程池(不建议这么做)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01ThreadPool</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ExecutorService es = Executors.newFixedThreadPool(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">// 线程池会一直开启 使用完了线程，会自动把线程归还给线程池，线程可以继续使用</span></span><br><span class="line">        es.submit(<span class="keyword">new</span> RunnableImpl());</span><br><span class="line">        es.submit(<span class="keyword">new</span> RunnableImpl());</span><br><span class="line">        es.submit(<span class="keyword">new</span> RunnableImpl());</span><br><span class="line">        es.submit(<span class="keyword">new</span> RunnableImpl());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// shutdown之后 线程池就消失了 不能再继续使用了</span></span><br><span class="line">        es.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><p>使用前提:<br>1、使用lambda必须具有接口,且接口中有且仅有一个抽象方法(Runnable、Comparator)<br>2、使用Lambda必须皆有上下文推断，也就是方法的参数或局部变量类型必须为Lambda对应的接口类型才能使用该接口的实例</p>
+<blockquote>
+<p>备注: 有且仅有一个抽象方法的接口称为”函数式接口”</p>
+</blockquote>
 
       
     </div>
