@@ -153,6 +153,198 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xyyanzi.github.io/2020/11/23/python-datetime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="豆包">
+      <meta itemprop="description" content="一只爱吃肉的豆包">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆包的博客间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/23/python-datetime/" class="post-title-link" itemprop="url">python基础--常见时间日期格式整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-23 16:18:20" itemprop="dateCreated datePublished" datetime="2020-11-23T16:18:20+08:00">2020-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-12 17:03:01" itemprop="dateModified" datetime="2020-12-12T17:03:01+08:00">2020-12-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>平时工作中经常会遇到处理时间和日期等的问题，由于掌握不是很熟练每次使用的时候都需要临时搜索，为了节约时间将一些常用的处理方法整理出来，一方面巩固学习记忆另一方面提高查找效率。暂时不涉及时区的相关处理。<br>参考资料：<a href="https://docs.python.org/zh-cn/3/library/datetime.html" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h3><p>python用于时间处理的模块主要是<code>datetime</code>模块,该模块下主要有以下几个类对象, 此篇文章主要使用了前4种对象：</p>
+<blockquote>
+<p><strong>date</strong>:<br>一个理想化的简单型日期，它假设当今的公历在过去和未来永远有效。 属性: year, month, and day。<br><strong>time</strong>:<br>一个独立于任何特定日期的理想化时间，它假设每一天都恰好等于 24<em>60</em>60 秒。<br><strong>datetime</strong>:<br>日期和时间的结合。属性：year, month, day, hour, minute, second, microsecond, and tzinfo.<br><strong>timedelta</strong>:<br>表示两个 date 对象或者 time 对象,或者 datetime 对象之间的时间间隔，精确到微秒。<br><strong>tzinfo</strong>:<br>一个描述时区信息对象的抽象基类。 用来给 datetime 和 time 类提供自定义的时间调整概念（例如处理时区和/或夏令时）。<br><strong>timezone</strong>:<br>一个实现了 tzinfo 抽象基类的子类，用于表示相对于 世界标准时间（UTC）的偏移量。</p>
+</blockquote>
+<h3 id="具体示例"><a href="#具体示例" class="headerlink" title="具体示例"></a>具体示例</h3><h4 id="获取当前时间的几种方式"><a href="#获取当前时间的几种方式" class="headerlink" title="获取当前时间的几种方式"></a>获取当前时间的几种方式</h4><p>1、datetime</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">now1 = datetime.now()</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-23</span> <span class="number">16</span>:<span class="number">14</span>:<span class="number">06.480689</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">datetime</span>'&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"># 完全等同于<span class="title">datetime</span>.<span class="title">now</span><span class="params">()</span></span></span><br><span class="line">now2 = datetime.today()</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-23</span> <span class="number">16</span>:<span class="number">50</span>:<span class="number">17.887866</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">datetime</span>'&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"># 获取指定格式的字符串类型的时间</span></span><br><span class="line">now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-23</span> <span class="number">16</span>:<span class="number">55</span>:<span class="number">51</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"># 获取当前时间所在的日期、年份、月份、小时、分钟、秒</span></span><br><span class="line">now_date = datetime.now().date()</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-23</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">date</span>'&gt;</span></span><br><span class="line">now_time = datetime.today().time()</span><br><span class="line">&gt; <span class="number">17</span>:<span class="number">05</span>:<span class="number">49.464909</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">time</span>'&gt;</span></span><br><span class="line">now_year = datetime.now().year</span><br><span class="line">&gt; <span class="number">2020</span></span><br><span class="line">now_month = datetime.now().month</span><br><span class="line">&gt; <span class="number">11</span></span><br><span class="line">now_day = datetime.now().day</span><br><span class="line">&gt; <span class="number">23</span></span><br><span class="line">now_hour = datetime.now().hour</span><br><span class="line">&gt; <span class="number">17</span></span><br><span class="line">now_minute = datetime.now().minute</span><br><span class="line">&gt; <span class="number">1</span></span><br><span class="line">now_second = datetime.now().second</span><br><span class="line">&gt; <span class="number">23</span></span><br><span class="line"><span class="comment"># 获取当前时间的时间戳</span></span><br><span class="line">now_timestamp = datetime.now().timestamp()</span><br><span class="line">&gt; <span class="number">1606122306.508749</span></span><br><span class="line"><span class="comment"># 将时间戳转换成datetime</span></span><br><span class="line">now = datetime.fromtimestamp(<span class="number">1606122561.86553</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将当前时间的月份替换</span></span><br><span class="line">now_replace = datetime.now().replace(month=<span class="number">12</span>)</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-12</span><span class="number">-23</span> <span class="number">17</span>:<span class="number">06</span>:<span class="number">51.372995</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">datetime</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、date</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> date</span><br><span class="line"><span class="comment"># date只能精确到日期，不能获得具体的时分秒</span></span><br><span class="line">date_now = date.today()</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-23</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">date</span>'&gt;</span></span><br><span class="line"><span class="class"># 将<span class="title">date</span>转换成<span class="title">str</span></span></span><br><span class="line">date_str = date.today().strftime("%Y-%m-%d %H:%M:%S")</span><br></pre></td></tr></table></figure>
+
+<p>3、time</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment"># 获取当前时间的时间戳</span></span><br><span class="line">now_timestamp = time.time()</span><br><span class="line">&gt; <span class="number">1606123328.550498</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当前时间的指定字符串格式</span></span><br><span class="line">now_time = time.strftime(<span class="string">"%H:%M:%S"</span>)</span><br><span class="line">&gt; <span class="number">17</span>:<span class="number">24</span>:<span class="number">26</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="关系转换"><a href="#关系转换" class="headerlink" title="关系转换"></a>关系转换</h4><p>1、datetime类型和str类型互相转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="comment"># datetime转换为str</span></span><br><span class="line">datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-23</span> <span class="number">16</span>:<span class="number">55</span>:<span class="number">51</span></span><br><span class="line"><span class="comment"># str转换为datetime</span></span><br><span class="line">datetime.strptime(<span class="string">"2014-12-31 18:20:10"</span>, <span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">&gt; <span class="number">2014</span><span class="number">-12</span><span class="number">-31</span> <span class="number">18</span>:<span class="number">20</span>:<span class="number">10</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">datetime</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="日期计算"><a href="#日期计算" class="headerlink" title="日期计算"></a>日期计算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta</span><br><span class="line"><span class="comment"># 当前日期减3天 datetime类型</span></span><br><span class="line">day = datetime.now() - timedelta(days=<span class="number">3</span>)</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-20</span> <span class="number">17</span>:<span class="number">43</span>:<span class="number">56.339933</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">datetime</span>'&gt;</span></span><br><span class="line"><span class="class"># 当前日期减3天 <span class="title">date</span>类型</span></span><br><span class="line">day = datetime.now().date() - timedelta(days=3)</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-11</span><span class="number">-20</span></span><br><span class="line">&gt; &lt;<span class="class"><span class="keyword">class</span> '<span class="title">datetime</span>.<span class="title">date</span>'&gt;</span></span><br><span class="line"><span class="class"># 当前日期增加10分钟<span class="params">(只支持days、seconds、minutes等，不支持year、month)</span></span></span><br><span class="line">t = datetime.now() + timedelta(minutes=10)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算两个date之间的间隔</span></span><br><span class="line">t = datetime(<span class="number">2020</span>, <span class="number">11</span>, <span class="number">27</span>, <span class="number">12</span>, <span class="number">0</span>, <span class="number">0</span>) - datetime.now().days</span><br><span class="line">&gt; <span class="number">3</span></span><br><span class="line"><span class="comment"># 计算两个date之间的间隔天数</span></span><br><span class="line">t = datetime(<span class="number">2020</span>, <span class="number">11</span>, <span class="number">27</span>, <span class="number">12</span>, <span class="number">0</span>, <span class="number">0</span>) - datetime.now()</span><br><span class="line">&gt; <span class="number">3</span> days, <span class="number">18</span>:<span class="number">08</span>:<span class="number">51.779207</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="获取当天的最早的时间和最晚的时间时间戳"><a href="#获取当天的最早的时间和最晚的时间时间戳" class="headerlink" title="获取当天的最早的时间和最晚的时间时间戳"></a>获取当天的最早的时间和最晚的时间时间戳</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, time</span><br><span class="line">today = datetime.today()</span><br><span class="line">date_time = datetime.combine(today, time.max)</span><br><span class="line">&gt; <span class="number">2020</span><span class="number">-12</span><span class="number">-22</span> <span class="number">23</span>:<span class="number">59</span>:<span class="number">59.999999</span></span><br><span class="line">time_stamp = datetime.combine(today, time.max).timestamp()</span><br><span class="line">&gt; <span class="number">1608652799.999999</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xyyanzi.github.io/2020/10/13/mysql-issue-solve/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="豆包">
+      <meta itemprop="description" content="一只爱吃肉的豆包">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆包的博客间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/13/mysql-issue-solve/" class="post-title-link" itemprop="url">Docker安装的mysql修改 max_allowed_packet参数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-13 15:16:49" itemprop="dateCreated datePublished" datetime="2020-10-13T15:16:49+08:00">2020-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-23 17:54:04" itemprop="dateModified" datetime="2020-11-23T17:54:04+08:00">2020-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>某天公司的项目跑sonarqube job的时候报错，查看sonarqube的日志后发现报错原因是数据库插入信息时数据包太大导致的异常，并且报错信息中也给出了解决办法，即修改max_allowed_packet的参数即可，下面记录下修改过程。<br>报错信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### Cause: com.mysql.cj.jdbc.exceptions.PacketTooBigException: Packet for query is too large (1,047 &gt; 1,024). You can change this value on the server by setting the 'max_allowed_packet' variable.</span></span><br><span class="line">; Packet <span class="keyword">for</span> query is too large (1,047 &gt; 1,024). You can change this value on the server by setting the <span class="string">'max_allowed_packet'</span> variable.; nested exception is com.mysql.cj.jdbc.exceptions.PacketTooBigException: Packet <span class="keyword">for</span> query is too large (1,047 &gt; 1,024). You can change this value on the server by setting the <span class="string">'max_allowed_packet'</span> variable.<span class="string">"</span></span><br></pre></td></tr></table></figure>
+
+<p>我的mysql是docker启动的，启动命令为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3307:3306  -v /data/app/mysql:/var/lib/mysql -e  MYSQL_ROOT_PASSWORD=root -d  mysql:5.6</span><br></pre></td></tr></table></figure>
+
+<p>下面介绍docker启动的mysql的修改办法，其他方式启动的mysql修改也和这个类似。</p>
+<h2 id="修改步骤"><a href="#修改步骤" class="headerlink" title="修改步骤"></a>修改步骤</h2><p>1、进入mysql容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it mysql bash</span><br></pre></td></tr></table></figure>
+
+<p>2、进入 /etc/mysql/mysql.conf.d 目录，修改mysqld.cnf文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/mysql/mysql.conf.d</span><br></pre></td></tr></table></figure>
+
+<p>3、修改mysqld.cnf文件(如果未安装vim，需要先安装 vim)<br>安装vim</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<p>修改my.cnf，增加max_allowed_packet=5242880配置  </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">pid-file= /var/run/mysqld/mysqld.pid</span><br><span class="line">socket= /var/run/mysqld/mysqld.sock</span><br><span class="line">datadir= /var/lib/mysql</span><br><span class="line"><span class="comment">#log-error= /var/log/mysql/error.log</span></span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line">symbolic-links=0</span><br><span class="line"><span class="comment"># 新增配置</span></span><br><span class="line">max_allowed_packet=5242880</span><br></pre></td></tr></table></figure>
+
+<p>4、 退出容器并重启mysql</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">退出容器    <span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 查看容器id  docker ps | grep mysql</span></span><br><span class="line">重启mysql  docker restart mysql</span><br></pre></td></tr></table></figure>
+
+<p>5、查看修改后结果，若max_allowed_pactet的值为已更新即表示修改成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">登录进mysql  mysql -h 127.0.0.1 -P 3307 -u root -p</span><br><span class="line">查看参数   show VARIABLES like <span class="string">'%max_allowed_packet%'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当时以为修改完mysql的配置之后就能解决问题，但是重新build soanrqube之后还报相同的错误，后来重启了一下sonar，才最终解决了问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://xyyanzi.github.io/2020/05/23/My-New-Post/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -479,7 +671,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
